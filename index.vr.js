@@ -1,34 +1,27 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import { AppRegistry, asset, Pano, View, Text } from 'react-vr';
 
-class Task extends Component{
-    render(){
-        return(
-            <Text style={{textAlign:'center', fontSize:0.2}}>Todo: {this.props.text}</Text>
-        )
-    }
-}
-
-
 export default class Basics extends Component {
-  render(){
-    return(
+  constructor(){
+    super();
+
+    this.state = {
+      showSign: true
+    };
+
+    setInterval(()=>this.setState({showSign: !this.state.showSign}),1000)
+  }
+  render() {
+    let message=this.state.showSign===true? "Welcome to VR World": " "
+
+    return (
       <View>
         <Pano source={asset('starry-sky.jpg')}></Pano>
-        <View
-        style={{
-            transform:[{translate: [0,0,-3]}],
-            layoutOrigin: [0.5, 0.5]
-        }}
-        >
-            <Task text="Get groceries"/>
-            <Task text="Finish HomeWork"/>
-            <Task text="Do Laundry"/>
-        </View>
+        <Text style={{fontSize:0.1, transform:[{translate: [-1, 0, -2]}]}}>{message}</Text>
       </View>
     )
-  }  
+  }
 }
 
-AppRegistry.registerComponent('Basics', ()=>Basics);
+AppRegistry.registerComponent('Basics', () => Basics);
